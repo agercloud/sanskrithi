@@ -1,4 +1,5 @@
 import 'dart:io';
+
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
@@ -6,18 +7,17 @@ import 'package:path_provider/path_provider.dart';
 class Grocery {
   final int? id;
   final String name;
+  final String meaning;
 
-  Grocery({this.id, required this.name});
+  Grocery({this.id, required this.name, required this.meaning});
 
   factory Grocery.fromMap(Map<String, dynamic> json) => Grocery(
         id: json['id'],
         name: json['name'],
+        meaning: json['meaning'],
       );
 
-  Map<String, dynamic> toMap() => {
-        'id': id,
-        'name': name,
-      };
+  Map<String, dynamic> toMap() => {'id': id, 'name': name, "meaning": meaning};
 }
 
 class DatabaseHelper {
@@ -42,7 +42,8 @@ class DatabaseHelper {
       onCreate: (db, version) async => await db.execute('''
         CREATE TABLE groceries (
           id INTEGER PRIMARY KEY AUTOINCREMENT,
-          name TEXT NOT NULL
+          name TEXT NOT NULL,
+          meaning TEXT
         )
       '''),
     );
