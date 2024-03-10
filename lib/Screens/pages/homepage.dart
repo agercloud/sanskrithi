@@ -15,21 +15,15 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(title: Image(image: AssetImage('assets/logo.png'))),
       body: SafeArea(
         child: Column(
           children: [
-            TextField(
+            SearchBar(
               controller: searchController,
-              decoration: InputDecoration(
-                labelText: 'Search for groceries',
-                prefixIcon: Icon(Icons.search),
-              ),
-              onChanged: (value) {
-                // Update the search text in the state
-                setState(() {
-                  searchText = value;
-                });
-              },
+              onChanged: (value) => setState(() {
+                searchText = value;
+              }),
             ),
             Expanded(
               child: FutureBuilder<List<Grocery>>(
@@ -40,7 +34,7 @@ class _HomePageState extends State<HomePage> {
                   } else if (snapshot.hasError) {
                     return Center(child: Text('Error: ${snapshot.error}'));
                   } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-                    return Center(child: Text('No grocery items found.'));
+                    return Center(child: Text('No items found.'));
                   } else {
                     return ListView.separated(
                       itemCount: snapshot.data!.length,

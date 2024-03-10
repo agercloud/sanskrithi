@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:sanskrithi/database/databasemain.dart';
-import 'package:sqflite/sqflite.dart';
 
 class DeletePage extends StatefulWidget {
   const DeletePage({Key? key}) : super(key: key);
